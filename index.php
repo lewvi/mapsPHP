@@ -27,12 +27,12 @@
     <script>
         function initMap() {
 
-            var positionMain = { lat: 13.736717, lng: 100.523186 }
+            const mapsOpition = {
+                zoom : 13,
+                center:{ lat: 13.736717, lng: 100.523186 }
+            }
 
-            var maps = new google.maps.Map(document.getElementById("map"), {
-                center: positionMain,
-                zoom: 13,
-            });
+            const maps = new google.maps.Map(document.getElementById("map"),mapsOpition);
 
             var marker, info;
 
