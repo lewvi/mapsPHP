@@ -19,7 +19,7 @@
     echo json_encode($resultArray);
 ?>
 
-// ------------- ดึงข้อมูล data มาใช้ และทำจุม Mark
+// ------------- ดึงข้อมูล data มาใช้ และทำจุม Mark -------------
 
     $.getJSON("data.php", function(jsonObj) {
         $.each(jsonObj, function(i, item) {
