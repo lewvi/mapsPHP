@@ -26,22 +26,24 @@
     </div>
     <script>
         function initMap() {
+            
+            var maps;
 
-            const mapsOpition = {
-                zoom : 13,
-                center:{ lat: 13.736717, lng: 100.523186 }
-            }
+            $.getJSON("./data/dataLocationCenter.php", function(jsonObj){
+                $.each(jsonObj, function(i,item){
+                    maps = new google.maps.Map(document.getElementById("map"),{
+                        center: new google.maps.LatLng(item.lat,item.lng),
+                        zoom: 13
+                    });
+                })
+            })
 
-            const maps = new google.maps.Map(document.getElementById("map"),mapsOpition);
-
-            var marker, info;
-
-            $.getJSON("data.php", function(jsonObj) {
+            $.getJSON("./data/dataMarker.php", function(jsonObj) {
                 $.each(jsonObj, function(i, item) {
-                    marker = new google.maps.Marker({
+                   marker = new google.maps.Marker({
                         position: new google.maps.LatLng(item.lat,item.lng),
                         map : maps
-                    });
+                    }); 
 
                     info = new google.maps.InfoWindow();
 
@@ -51,7 +53,7 @@
                             info.open(maps, marker)
                         }
                     })(marker, i));
-                })
+                }) 
             })
         }
     </script>

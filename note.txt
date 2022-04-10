@@ -1,4 +1,4 @@
-// Connect database
+// ------------- Connect database -------------
 
 <?php
     header('Content-Type: application/json');
@@ -19,24 +19,32 @@
     echo json_encode($resultArray);
 ?>
 
-//-------------------------------------------------
+// ------------- ดึงข้อมูล data มาใช้ และทำจุม Mark
 
-// Marker
+    $.getJSON("data.php", function(jsonObj) {
+        $.each(jsonObj, function(i, item) {
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng(item.lat,item.lng),
+                map : maps
+            }); 
 
-const locations = [
-    ["เขตบางรัก", 13.7337, 100.5268],
-    ["เขตบางกอกใหญ่", 13.74162, 100.47640],
-];
+            info = new google.maps.InfoWindow();
+
+            google.maps.event.addListener(marker,"click", (function(marker, i) {
+                return function() {
+                    info.setContent(item.name)
+                    info.open(maps, marker)
+                }
+            })(marker, i));*/
+        }) 
+    })
 
 
-function setMarkers(map) {
+//---------- แสดงแผนที่ -----------------
 
-    for (let i = 0; i < locations.length; i++) {
-        const location = locations[i];
-
-        new google.maps.Marker({
-            position: { lat: location[1], lng: location[2] },
-            map,
-        });
+    const mapsOption = {
+        zoom: 13,
+        center:{ lat: 13.736717, lng: 100.523186 }
     }
-} 
+
+    const map = new google.maps.Map(document.getElementById("map"), mapsOption); 
